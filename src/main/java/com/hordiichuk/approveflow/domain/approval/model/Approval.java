@@ -1,5 +1,6 @@
 package com.hordiichuk.approveflow.domain.approval.model;
 
+import com.hordiichuk.approveflow.shared.error.ApprovalDecisionNotAllowedException;
 import com.hordiichuk.approveflow.shared.id.ApprovalId;
 import com.hordiichuk.approveflow.shared.error.ApprovalAlreadySubmittedException;
 
@@ -31,6 +32,18 @@ public class Approval {
             throw new ApprovalAlreadySubmittedException(id);
         }
         this.status = ApprovalStatus.SUBMITTED;
+    }
+
+    public void decide(Decision decision) {
+        Objects.requireNonNull(decision, "decision must not be null");
+
+        if (this.status != ApprovalStatus.SUBMITTED) {
+            throw new ApprovalDecisionNotAllowedException(id, this.status);
+        }
+
+        this.status = (decision == Decision.APPROVE)
+                ? ApprovalStatus.APPROVED
+                : ApprovalStatus.REJECTED;
     }
 
     public ApprovalId id (){

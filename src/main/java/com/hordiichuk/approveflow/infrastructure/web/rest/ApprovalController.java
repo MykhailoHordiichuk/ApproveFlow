@@ -1,8 +1,10 @@
 package com.hordiichuk.approveflow.infrastructure.web.rest;
 
 import com.hordiichuk.approveflow.application.approval.usecase.CreateApprovalUseCase;
+import com.hordiichuk.approveflow.application.approval.usecase.DecideApprovalUseCase;
 import com.hordiichuk.approveflow.application.approval.usecase.GetApprovalUseCase;
 import com.hordiichuk.approveflow.application.approval.usecase.SubmitApprovalUseCase;
+import com.hordiichuk.approveflow.domain.approval.model.Decision;
 import com.hordiichuk.approveflow.shared.id.ApprovalId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +22,15 @@ public class ApprovalController {
     private final CreateApprovalUseCase createApprovalUseCase;
 
     private final GetApprovalUseCase getApprovalUseCase;
+    private final DecideApprovalUseCase decideApprovalUseCase;
 
     public ApprovalController(CreateApprovalUseCase createApprovalUseCase,
                               SubmitApprovalUseCase submitApprovalUseCase,
-                              GetApprovalUseCase getApprovalUseCase) {
+                              GetApprovalUseCase getApprovalUseCase, DecideApprovalUseCase decideApprovalUseCase) {
         this.createApprovalUseCase = createApprovalUseCase;
         this.submitApprovalUseCase = submitApprovalUseCase;
         this.getApprovalUseCase = getApprovalUseCase;
+        this.decideApprovalUseCase = decideApprovalUseCase;
     }
 
     @PostMapping("/{id}/submit")
@@ -50,5 +54,12 @@ public class ApprovalController {
         return new GetApprovalResponse(view.id(), view.status());
     }
 
+    @PostMapping("/{id}/decide")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void decide(@PathVariable UUID id, @RequestBody DecideRequest body) {
+        decideApprovalUseCase.decide(new ApprovalId(id), body.decision);
+    }
+
     public record GetApprovalResponse(UUID id, String status) {}
+    public record DecideRequest(Decision decision) {}
 }

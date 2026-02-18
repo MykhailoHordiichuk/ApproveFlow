@@ -3,6 +3,7 @@ package com.hordiichuk.approveflow.infrastructure.config;
 import com.hordiichuk.approveflow.application.approval.port.out.LoadApprovalPort;
 import com.hordiichuk.approveflow.application.approval.port.out.SaveApprovalPort;
 import com.hordiichuk.approveflow.application.approval.usecase.CreateApprovalUseCase;
+import com.hordiichuk.approveflow.application.approval.usecase.DecideApprovalUseCase;
 import com.hordiichuk.approveflow.application.approval.usecase.GetApprovalUseCase;
 import com.hordiichuk.approveflow.application.approval.usecase.SubmitApprovalUseCase;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +25,10 @@ public class UseCaseConfig {
     @Bean
     public GetApprovalUseCase getApprovalUseCase(LoadApprovalPort loadApprovalPort) {
         return new GetApprovalUseCase(loadApprovalPort);
+    }
+
+    @Bean
+    public DecideApprovalUseCase decideApprovalUseCase(LoadApprovalPort loadPort, SaveApprovalPort savePort) {
+        return new DecideApprovalUseCase(loadPort, savePort);
     }
 }
