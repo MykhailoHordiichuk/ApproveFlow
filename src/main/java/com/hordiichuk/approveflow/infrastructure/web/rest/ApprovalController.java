@@ -6,6 +6,8 @@ import com.hordiichuk.approveflow.application.approval.usecase.SubmitApprovalUse
 import com.hordiichuk.approveflow.shared.id.ApprovalId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import java.net.URI;
 
 import java.util.UUID;
 
@@ -34,9 +36,11 @@ public class ApprovalController {
     }
 
     @PostMapping
-    public CreateApprovalResponse create() {
+    public ResponseEntity<CreateApprovalResponse> create() {
         var id = createApprovalUseCase.create();
-        return new CreateApprovalResponse(id.value());
+        return ResponseEntity
+                .created(URI.create("/approvals/" + id.value()))
+                .body(new CreateApprovalResponse(id.value()));
     }
     public record CreateApprovalResponse(UUID id) {}
 
