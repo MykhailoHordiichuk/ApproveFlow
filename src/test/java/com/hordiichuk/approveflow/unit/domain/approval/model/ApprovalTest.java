@@ -1,8 +1,12 @@
-package com.hordiichuk.approveflow.domain.approval.model;
+package com.hordiichuk.approveflow.unit.domain.approval.model;
 
+import com.hordiichuk.approveflow.domain.approval.model.Approval;
+import com.hordiichuk.approveflow.domain.approval.model.ApprovalStatus;
+import com.hordiichuk.approveflow.domain.approval.model.Decision;
 import com.hordiichuk.approveflow.shared.error.ApprovalAlreadySubmittedException;
 import com.hordiichuk.approveflow.shared.error.ApprovalDecisionNotAllowedException;
 import com.hordiichuk.approveflow.shared.id.ApprovalId;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +16,7 @@ public class ApprovalTest {
     @Test
     void newApproval_isDraft(){
         var approval = Approval.createNew(ApprovalId.newId());
-        assertEquals(ApprovalStatus.DRAFT, approval.status());
+        Assertions.assertEquals(ApprovalStatus.DRAFT, approval.status());
     }
 
     @Test

@@ -8,8 +8,12 @@ import com.hordiichuk.approveflow.shared.id.ApprovalId;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+@Repository
+@Profile("test")
 public class InMemoryApprovalRepository implements LoadApprovalPort, SaveApprovalPort {
 
     private final Map<ApprovalId, Approval> store = new HashMap<>();

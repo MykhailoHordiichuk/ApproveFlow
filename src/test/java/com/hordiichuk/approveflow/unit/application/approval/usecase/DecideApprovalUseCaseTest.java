@@ -1,5 +1,6 @@
-package com.hordiichuk.approveflow.application.approval.usecase;
+package com.hordiichuk.approveflow.unit.application.approval.usecase;
 
+import com.hordiichuk.approveflow.application.approval.usecase.DecideApprovalUseCase;
 import com.hordiichuk.approveflow.domain.approval.model.Approval;
 import com.hordiichuk.approveflow.domain.approval.model.ApprovalStatus;
 import com.hordiichuk.approveflow.domain.approval.model.Decision;

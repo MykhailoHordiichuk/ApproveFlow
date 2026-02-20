@@ -6,12 +6,14 @@ import com.hordiichuk.approveflow.domain.approval.model.Approval;
 import com.hordiichuk.approveflow.infrastructure.persistence.jpa.mapper.ApprovalJpaMapper;
 import com.hordiichuk.approveflow.infrastructure.persistence.jpa.repo.ApprovalJpaRepository;
 import com.hordiichuk.approveflow.shared.id.ApprovalId;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
+@Profile("!test")
 @Transactional
 public class ApprovalJpaAdapter implements LoadApprovalPort, SaveApprovalPort {
 
