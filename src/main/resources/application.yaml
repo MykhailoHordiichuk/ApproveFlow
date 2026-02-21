@@ -1,7 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:15432/mydatabase
-    username: myuser
-    password: secret
-  flyway:
-    enabled: true

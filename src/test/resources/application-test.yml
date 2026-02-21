@@ -1,0 +1,9 @@
+spring:
+  docker:
+    compose:
+      enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.hordiichuk.approveflow: INFO

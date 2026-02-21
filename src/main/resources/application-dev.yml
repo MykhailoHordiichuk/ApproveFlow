@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:15432/mydatabase
+    username: myuser
+    password: secret
+  flyway:
+    enabled: true
+  docker:
+    compose:
+      enabled: true
+logging:
+  level:
+    root: INFO
+    com.hordiichuk.approveflow: DEBUG
+    org.springframework: INFO
+    org.hibernate.SQL: WARN
+    java.lang.ProcessBuilder: INFO
+    org.springframework.boot.docker.compose: INFO
