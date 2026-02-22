@@ -74,6 +74,17 @@ http://localhost:8080
 
 ---
 
+## 📘 API Documentation (OpenAPI)
+
+After starting the application, API documentation is available at:
+
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- OpenAPI spec (JSON): http://localhost:8080/v3/api-docs
+
+> Endpoints are available only when the application is running.
+
+---
+
 ## 🧪 Run Tests
 
 ```bash
