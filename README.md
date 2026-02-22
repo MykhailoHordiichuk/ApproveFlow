@@ -42,33 +42,65 @@ infrastructure/
 ## 🧭 Architecture Diagram
 
 ```mermaid
-flowchart TB
+flowchart LR
 
-    subgraph Domain
-        D1[Approval Entity]
-        D2[Business Rules]
+    subgraph Presentation
+        REST[ApprovalController]
+        EH[RestExceptionHandler]
     end
 
     subgraph Application
-        A1[Use Cases]
-        A2[Ports In]
-        A3[Ports Out]
+        UC1[CreateApprovalUseCase]
+        UC2[SubmitApprovalUseCase]
+        UC3[DecideApprovalUseCase]
+        UC4[GetApprovalUseCase]
+
+        LP[LoadApprovalPort]
+        SP[SaveApprovalPort]
+    end
+
+    subgraph Domain
+        A[Approval Aggregate]
+        AS[ApprovalStatus]
+        D[Decision]
     end
 
     subgraph Infrastructure
-        I1[REST Controllers]
-        I2[JPA Repositories]
-        I3[PostgreSQL]
-        I4[Flyway]
+        JPA[ApprovalJpaAdapter]
+        IM[InMemoryApprovalRepository]
+        REPO[ApprovalJpaRepository]
+        MAPPER[ApprovalJpaMapper]
+        DB[(PostgreSQL)]
+        FLY[Flyway]
     end
 
-    I1 --> A2
-    A1 --> D1
-    A1 --> D2
-    A1 --> A3
-    A3 --> I2
-    I2 --> I3
-    I4 --> I3
+    REST --> UC1
+    REST --> UC2
+    REST --> UC3
+    REST --> UC4
+
+    UC1 --> SP
+    UC2 --> LP
+    UC2 --> SP
+    UC3 --> LP
+    UC3 --> SP
+    UC4 --> LP
+
+    UC1 --> A
+    UC2 --> A
+    UC3 --> A
+    UC4 --> A
+
+    SP --> JPA
+    LP --> JPA
+
+    JPA --> REPO
+    JPA --> MAPPER
+    REPO --> DB
+    FLY --> DB
+
+    IM -. test profile .-> LP
+    IM -. test profile .-> SP
 ```
 
 ---
