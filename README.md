@@ -39,6 +39,40 @@ infrastructure/
 
 ---
 
+## 🧭 Architecture Diagram
+
+```mermaid
+flowchart TB
+
+    subgraph Domain
+        D1[Approval Entity]
+        D2[Business Rules]
+    end
+
+    subgraph Application
+        A1[Use Cases]
+        A2[Ports In]
+        A3[Ports Out]
+    end
+
+    subgraph Infrastructure
+        I1[REST Controllers]
+        I2[JPA Repositories]
+        I3[PostgreSQL]
+        I4[Flyway]
+    end
+
+    I1 --> A2
+    A1 --> D1
+    A1 --> D2
+    A1 --> A3
+    A3 --> I2
+    I2 --> I3
+    I4 --> I3
+```
+
+---
+
 ## 🛠 Tech Stack
 
 - Java 25
